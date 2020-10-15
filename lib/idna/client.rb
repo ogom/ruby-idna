@@ -12,15 +12,10 @@ module Idna
     # * As above, but for single domain parts only (e.g. "example") and not
     #   intended for TLDs such as ".com" (character match is too permissive).
     #
-    # * Two more as above, but each allowing a "*" inside the string for
-    #   a wildcard.
-    #
     # Convert Unicode domains to ASCII before using these. See also #valid?.
     #
-    ASCII_DOMAIN_FULL_REGEXP           = /^[A-Za-z0-9\-\.]{1,63}?\.[A-Za-z]+$/
-    ASCII_DOMAIN_LIGHT_REGEXP          = /^[A-Za-z0-9\-]{1,63}?$/
-    ASCII_DOMAIN_WILDCARD_FULL_REGEXP  = /^[A-Za-z0-9\-\.\*]{1,63}?\.[A-Za-z]+$/
-    ASCII_DOMAIN_WILDCARD_LIGHT_REGEXP = /^[A-Za-z0-9\-\*]{1,63}?$/
+    ASCII_DOMAIN_FULL_REGEXP  = /^[A-Za-z0-9\-\.]{1,63}?\.[A-Za-z]+$/
+    ASCII_DOMAIN_LIGHT_REGEXP = /^[A-Za-z0-9\-]{1,63}?$/
 
     extend FFI::Library
     class << self
@@ -68,30 +63,22 @@ module Idna
     #
     # Options are:
     #
-    # +components+::  Incorporates multiple components (e.g. "example.com" or
-    #                 "subdomain.example.com"), in which case the last domain
-    #                 (in both of these examples, that's ".com") must follow
-    #                 TLD rules and use alphabetic characters only. Default is
-    #                 +false+.
+    # +components+:: Incorporates multiple components (e.g. "example.com" or
+    #                "subdomain.example.com"), in which case the last domain
+    #                (in both of these examples, that's ".com") must follow
+    #                TLD rules and use alphabetic characters only. Default is
+    #                +false+.
     #
-    # +wildcards+::   Allows a "*" in anything before a TLD (if present).
-    #                 Default is +false+.
-    #
-    def valid?(string, components: false, wildcards: false)
+    def valid?(string, components: false)
       return false unless string
-
-      regexp = if components
-        wildcards ? ASCII_DOMAIN_WILDCARD_FULL_REGEXP  : ASCII_DOMAIN_FULL_REGEXP
-      else
-        wildcards ? ASCII_DOMAIN_WILDCARD_LIGHT_REGEXP : ASCII_DOMAIN_LIGHT_REGEXP
-      end
 
       # Force conversion to/from UTF-8 (whether or not already in UTF-8 or just
       # ASCII) to check validity for those operations, then process the ASCII
-      # result through the regular expression determined above.
+      # result through an appropriate regular expression.
 
       string = to_unicode(string, skip_useless: false)
       string =   to_ascii(string, skip_useless: false)
+      regexp = components ? ASCII_DOMAIN_FULL_REGEXP : ASCII_DOMAIN_LIGHT_REGEXP
 
       return string.match?(regexp)
 

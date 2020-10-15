@@ -49,94 +49,42 @@ RSpec.describe Idna do
 
   describe '#valid?' do
     context 'With components allowed' do
-      context 'With wildcards allowed' do
-        example 'ASCII' do
-          expect(Idna.valid?('*.test.com', components: true, wildcards: true)).to eql(true)
-        end
-
-        example 'UTF-8' do
-          expect(Idna.valid?('*.あいうえお.com', components: true, wildcards: true)).to eql(true)
-        end
-
-        example 'Invalid ASCII' do
-          expect(Idna.valid?('*.test_underscore.com', components: true, wildcards: true)).to eql(false)
-        end
-
-        example 'Too long' do
-          expect(Idna.valid?('a.b' * 30, components: true, wildcards: true)).to eql(false)
-        end
+      example 'ASCII' do
+        expect(Idna.valid?('test.com', components: true)).to eql(true)
       end
 
-      context 'No wildcards allowed' do
-        example 'ASCII' do
-          expect(Idna.valid?('test.com', components: true)).to eql(true)
-        end
+      example 'UTF-8' do
+        expect(Idna.valid?('あいうえお.com', components: true)).to eql(true)
+      end
 
-        example 'UTF-8' do
-          expect(Idna.valid?('あいうえお.com', components: true)).to eql(true)
-        end
+      example 'Invalid ASCII' do
+        expect(Idna.valid?('test_underscore.com', components: true)).to eql(false)
+      end
 
-        example 'Invalid ASCII' do
-          expect(Idna.valid?('test_underscore.com', components: true)).to eql(false)
-        end
-
-        example 'Too long' do
-          expect(Idna.valid?('*.' + ('a.b' * 30), components: true)).to eql(false)
-        end
-
-        example 'With a wildcard given anyway' do
-          expect(Idna.valid?('*.test.com', components: true)).to eql(false)
-        end
+      example 'Too long' do
+        expect(Idna.valid?('*.' + ('a.b' * 30), components: true)).to eql(false)
       end
     end
 
     context 'Only one component allowed' do
-      context 'With wildcards allowed' do
-        example 'ASCII' do
-          expect(Idna.valid?('*test', wildcards: true)).to eql(true)
-        end
-
-        example 'UTF-8' do
-          expect(Idna.valid?('*あいうえお', wildcards: true)).to eql(true)
-        end
-
-        example 'Invalid ASCII' do
-          expect(Idna.valid?('*test_underscore', wildcards: true)).to eql(false)
-        end
-
-        example 'Too long' do
-          expect(Idna.valid?('*' + ('a' * 100), wildcards: true)).to eql(false)
-        end
-
-        example 'With multiple components given anyway' do
-          expect(Idna.valid?('*.test.com', wildcards: true)).to eql(false)
-        end
+      example 'ASCII' do
+        expect(Idna.valid?('test')).to eql(true)
       end
 
-      context 'No wildcards allowed' do
-        example 'ASCII' do
-          expect(Idna.valid?('test')).to eql(true)
-        end
+      example 'UTF-8' do
+        expect(Idna.valid?('あいうえお')).to eql(true)
+      end
 
-        example 'UTF-8' do
-          expect(Idna.valid?('あいうえお')).to eql(true)
-        end
+      example 'Invalid ASCII' do
+        expect(Idna.valid?('test_underscore')).to eql(false)
+      end
 
-        example 'Invalid ASCII' do
-          expect(Idna.valid?('test_underscore')).to eql(false)
-        end
+      example 'Too long' do
+        expect(Idna.valid?('a' * 100)).to eql(false)
+      end
 
-        example 'Too long' do
-          expect(Idna.valid?('a' * 100)).to eql(false)
-        end
-
-        example 'With multiple components given anyway' do
-          expect(Idna.valid?('test.com')).to eql(false)
-        end
-
-        example 'With a wildcard given anyway' do
-          expect(Idna.valid?('*test')).to eql(false)
-        end
+      example 'With multiple components given anyway' do
+        expect(Idna.valid?('test.com')).to eql(false)
       end
     end
   end
