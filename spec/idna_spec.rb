@@ -18,7 +18,7 @@ RSpec.describe Idna do
 
     describe 'Error' do
       example 'The final output string is not within the (inclusive) range 1 to 63 characters.' do
-        expect { Idna.to_ascii('a' * 100) }.to raise_error(Idna::Error::IDNA_INVALID_LENGTH)
+        expect { Idna.to_ascii('a' * 100) }.to raise_error(Idna::Error::IDN2_TOO_BIG_LABEL)
       end
     end
 

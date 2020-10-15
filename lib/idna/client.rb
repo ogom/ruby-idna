@@ -86,8 +86,18 @@ module Idna
         wildcards ? ASCII_DOMAIN_WILDCARD_LIGHT_REGEXP : ASCII_DOMAIN_LIGHT_REGEXP
       end
 
-      return to_ascii(string, skip_useless: true).match?(regexp)
+      # Force conversion to/from UTF-8 (whether or not already in UTF-8 or just
+      # ASCII) to check validity for those operations, then process the ASCII
+      # result through the regular expression determined above.
 
+      string = to_unicode(string, skip_useless: false)
+      string =   to_ascii(string, skip_useless: false)
+
+      return string.match?(regexp)
+
+    # Although some error conditions might not indicate a lack of valid input,
+    # e.g. "out of memory", most do; this 'rescue' just keeps it simple.
+    #
     rescue Idna::Error
       return false
 
