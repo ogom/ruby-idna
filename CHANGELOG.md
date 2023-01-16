@@ -1,5 +1,9 @@
 # Change Log
 
+## v1.1.0 (2022-01-16)
+
+- Ensured compatibility with Ruby v3.2.0.
+
 ## v1.0.1 (2021-07-12)
 
 - Made compatible with Ruby v3.

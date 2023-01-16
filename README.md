@@ -5,7 +5,8 @@
 The gem is tested with:
 
 * Ruby 2.4.10, but probably works on all later Ruby 2 versions.
-* Ruby 3.0.2, and will probably works on all subsequent Ruby 3.0.x versions.
+* Ruby 3.0.2, and probably works on all Ruby 3.0.x and 3.1.x versions.
+* Ruby 3.2.0, and probably works on all subsequent Ruby 3.2.x versions.
 
 ## Installation
 
