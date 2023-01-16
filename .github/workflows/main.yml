@@ -27,6 +27,6 @@ jobs:
     - name: Install dependencies
       run: |
         bundle install
-        sudo apt-get -yqq install libidn2-0
+        sudo apt-get -yqq install libidn2-0-dev
     - name: Run tests
       run: bundle exec rspec
