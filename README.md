@@ -2,11 +2,7 @@
 
 [Ruby FFI](https://github.com/ffi/ffi) bindings for the [libidn2](https://www.gnu.org/software/libidn/#libidn2) library, providing some simple methods to handle internationalised domain names backed by the GNU library's complete IDNA2008 / TR46 implementation.
 
-The gem is tested with:
-
-* Ruby 2.4.10, but probably works on all later Ruby 2 versions.
-* Ruby 3.0.2, and probably works on all Ruby 3.0.x and 3.1.x versions.
-* Ruby 3.2.0, and probably works on all subsequent Ruby 3.2.x versions.
+The gem is tested with "latest at last test run" patch versions of Ruby 2.4 up to and including 3.2. See `.github/workflows/main.yml` for the full list of major-minor versions.
 
 ## Installation
 
