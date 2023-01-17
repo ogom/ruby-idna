@@ -6,11 +6,11 @@ require "idna/version"
 Gem::Specification.new do |spec|
   spec.name          = "idna"
   spec.version       = Idna::VERSION
-  spec.authors       = ["ogom"]
-  spec.email         = ["ogom@outlook.com"]
+  spec.authors       = ["ogom", "RIP Global"]
+  spec.email         = ["ogom@outlook.com", "dev@ripglobal.com"]
 
-  spec.summary       = %q{The IDN Library to use by the Ruby-FFI.}
-  spec.description   = %q{The IDN Library to use by the Ruby-FFI.}
+  spec.summary       = %q{Ruby FFI bindings for Libidn2.}
+  spec.description   = %q{Ruby FFI bindings for Libidn2.}
   spec.homepage      = "https://github.com/ogom/ruby-idna"
   spec.license       = "MIT"
 
@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "ffi"
 
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "bundler", "~>  2.1"
+  spec.add_development_dependency "rake",    "~> 13.0"
+  spec.add_development_dependency "rspec",   "~>  3.12"
 end

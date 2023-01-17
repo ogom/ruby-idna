@@ -1,0 +1,32 @@
+name: Ruby
+
+on:
+  push:
+    branches:
+      - master
+      - feature/libidn2
+
+  pull_request:
+    branches:
+      - master
+      - feature/libidn2
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: ['3.2']
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby ${{ matrix.ruby }}
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: |
+        bundle install
+        sudo apt-get -yqq install libidn2-0-dev
+    - name: Run tests
+      run: bundle exec rspec

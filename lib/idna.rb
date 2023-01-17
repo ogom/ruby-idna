@@ -26,9 +26,9 @@ module Idna
       true
     end
 
-    def method_missing(method, *args, &block)
+    def method_missing(method, *args, **kwargs, &block)
       return super unless client.respond_to?(method)
-      client.send(method, *args, &block)
+      client.send(method, *args, **kwargs, &block)
     end
   end
 end

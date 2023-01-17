@@ -1,6 +1,6 @@
 module Idna
   module Default
-    FFI_LIB = 'idn'.freeze
+    FFI_LIB = 'idn2'.freeze
 
     class << self
       def ffi_lib
